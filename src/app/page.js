@@ -8,8 +8,12 @@ import TodoItem from './TodoItem';
 export default function Home() {
   
   const [listItems, setListItems] = React.useState([]);
+
   const handleAction = (action, response) =>{
-    console.log(action, response)
+    if(action == 'add'){
+      setListItems([...listItems, response])
+    }
+    console.log(listItems)
   }
   return (
     <>
@@ -24,7 +28,10 @@ export default function Home() {
       </AppBar>
     </div>
     <TodoForm handleAction={handleAction}/>
-    <TodoItem />
+    {listItems.map((task) =>(
+     <TodoItem task={task} handleAction={handleAction} key={task}/>)
+  )}
+    
 
 
 </>

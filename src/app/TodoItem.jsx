@@ -7,7 +7,8 @@ import EditIcon from '@mui/icons-material/Edit';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-export default function TodoItem() {
+export default function TodoItem({task, handleAction}) {
+    console.log(task);
     function handleEdit(){
         console.log('tes')
     }
@@ -21,8 +22,8 @@ export default function TodoItem() {
     <Box sx={{margin:'auto', display: 'flex', flexDirection: 'row'}}>
     
     <div sx={{flex:2}}>
-    <Typography gutterBottom sx={{mb:'-5px', textAlign:'left',  color:'#f4717f'}}>Priority: 1</Typography>
-        <Typography gutterBottom sx={{mb:'-5px', textAlign:'left'}}> EXAMPLE TASK GOES HERE
+    <Typography gutterBottom sx={{mb:'-5px', textAlign:'left',  color:'#f4717f'}}>Priority: {task[1]}</Typography>
+        <Typography gutterBottom sx={{mb:'-5px', textAlign:'left'}}> {task[0]}
     </Typography>
     </div>
 
