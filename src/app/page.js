@@ -1,26 +1,33 @@
-
 "use client";
-
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-
+import TodoForm from './TodoForm';
+import TodoItem from './TodoItem';
 export default function Home() {
+  
+  const [listItems, setListItems] = React.useState([]);
+  const handleAction = (action, response) =>{
+    console.log(action, response)
+  }
   return (
-    
-      <AppBar position="static">
+    <>
+    <div className="header">
+    <AppBar position="static" sx={{backgroundColor:'white'}}>
         <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            News
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1, color:"#f4717f"}}>
+            Todo
           </Typography>
           
         </Toolbar>
       </AppBar>
+    </div>
+    <TodoForm handleAction={handleAction}/>
+    <TodoItem />
+
+
+</>
 
   );
 }
