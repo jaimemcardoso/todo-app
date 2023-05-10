@@ -6,18 +6,20 @@ import { Card } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+
 function valuetext(value) {
   return `${value}°C`;
 }
 
-export default function TodoForm({handleAction}) {
+export default function TodoForm(props) {
 const [isButtonDisabled, setIsButtonDisabled] = React.useState(true);
 const [inputValue, setInputValue] = React.useState('');
 const [priority, setPriority] = React.useState(3);
 
     const sendToParent = () => {
-        let res = [inputValue, priority]
-        handleAction("add", res);
+        console.log(props)
+        let res = {task: inputValue, priority: priority, id:Date.now()}
+        props.onFormSubmit("add",res)
         setPriority(3);
         setInputValue('');
         setIsButtonDisabled(true)

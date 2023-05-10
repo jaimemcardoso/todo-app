@@ -9,11 +9,15 @@ export default function Home() {
   
   const [listItems, setListItems] = React.useState([]);
 
-  const handleAction = (action, response) =>{
+  const handleAction = (action, response) => {
     if(action == 'add'){
+      console.log(response);
       setListItems([...listItems, response])
+    }if(action === 'delete'){
+      let key = response;
+      setListItems(listItems.filter(item =>item.id !== key));
     }
-    console.log(listItems)
+    console.log(listItems);
   }
   return (
     <>
@@ -27,10 +31,14 @@ export default function Home() {
         </Toolbar>
       </AppBar>
     </div>
-    <TodoForm handleAction={handleAction}/>
-    {listItems.map((task) =>(
-     <TodoItem task={task} handleAction={handleAction} key={task}/>)
-  )}
+    <TodoForm onFormSubmit={handleAction} />
+    
+    {listItems.map((item, index) => (
+       <TodoItem task={item} key={index} id={index} onDelete={handleAction} />
+    ))}
+    
+
+
     
 
 
