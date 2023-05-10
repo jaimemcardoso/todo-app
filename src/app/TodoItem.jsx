@@ -9,10 +9,9 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 export default function TodoItem(props){
     function handleEdit(){
-        console.log('tes')
+        props.onEdit("edit",props.task);
     }
     function handleDelete(){
-        console.log('delete');
         let key = props.task.id;
         props.onDelete("delete",key)
 

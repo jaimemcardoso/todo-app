@@ -8,16 +8,17 @@ import TodoItem from './TodoItem';
 export default function Home() {
   
   const [listItems, setListItems] = React.useState([]);
+  const [editableItem, setEditableItem] = React.useState("");
 
   const handleAction = (action, response) => {
     if(action == 'add'){
-      console.log(response);
       setListItems([...listItems, response])
-    }if(action === 'delete'){
+    }else if(action === 'delete'){
       let key = response;
       setListItems(listItems.filter(item =>item.id !== key));
+    }else if(action === 'edit'){
+      setEditableItem(response);
     }
-    console.log(listItems);
   }
   return (
     <>
@@ -31,10 +32,10 @@ export default function Home() {
         </Toolbar>
       </AppBar>
     </div>
-    <TodoForm onFormSubmit={handleAction} />
+    <TodoForm onFormSubmit={handleAction} editableItem={editableItem}/>
     
     {listItems.map((item, index) => (
-       <TodoItem task={item} key={index} id={index} onDelete={handleAction} />
+       <TodoItem task={item} key={index} id={index} onDelete={handleAction} onEdit={handleAction} />
     ))}
     
 

@@ -6,7 +6,7 @@ import { Card } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-
+import { useEffect } from 'react';
 function valuetext(value) {
   return `${value}°C`;
 }
@@ -15,6 +15,23 @@ export default function TodoForm(props) {
 const [isButtonDisabled, setIsButtonDisabled] = React.useState(true);
 const [inputValue, setInputValue] = React.useState('');
 const [priority, setPriority] = React.useState(3);
+const [buttonText, setButtonText] = React.useState("Add");
+const [editable, setEditable] = React.useState(true)
+
+useEffect(() => {
+  if(props.editableItem){
+    console.log(props.editableItem)
+    setButtonText('Edit')
+    setInputValue(props.editableItem.task);
+    setPriority(props.editableItem.priority);
+    setIsButtonDisabled(false);
+    setEditable(false);
+    
+}else{
+    setButtonText('Add')
+}
+
+}, [props.editableItem])
 
     const sendToParent = () => {
         console.log(props)
@@ -29,11 +46,21 @@ const [priority, setPriority] = React.useState(3);
         setInputValue(event.target.value);
         if(event.target.value.length > 10){
             setIsButtonDisabled(false)
+        }else{
+            setIsButtonDisabled(true);
         }
       }
 
       const handleSliderChange = (event) => {
         setPriority(event.target.value);
+      }
+
+      const cancelEdit = () =>{
+        setButtonText('Add')
+        setInputValue("");
+        setPriority(3);
+        setIsButtonDisabled(true);
+        setEditable(true)
       }
 
   return (
@@ -54,7 +81,10 @@ const [priority, setPriority] = React.useState(3);
       />
         <TextField id="outlined-basic" label="Outlined" variant="outlined" value={inputValue}
         onChange={handleInputChange} />
-        <Button variant="contained" sx={{backgroundColor:'gray', m:1}} onClick={sendToParent} disabled={isButtonDisabled}>Add</Button>
+        <Button variant="contained" sx={{backgroundColor:'gray', m:1}} onClick={sendToParent} disabled={isButtonDisabled}>{buttonText}</Button>
+        {!editable &&  <Button variant="contained" sx={{backgroundColor:'gray', m:1}} onClick={cancelEdit} disabled={editable}>Cancel</Button> }
+       
+
     </Box>
 
  
